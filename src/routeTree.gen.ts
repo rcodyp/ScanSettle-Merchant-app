@@ -10,33 +10,72 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ApiCreateOrderRouteImport } from './routes/api/create-order'
+import { Route as ApiCheckPaymentRouteImport } from './routes/api/check-payment'
+import { Route as ApiWebhookKirapayRouteImport } from './routes/api/webhook.kirapay'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiCreateOrderRoute = ApiCreateOrderRouteImport.update({
+  id: '/api/create-order',
+  path: '/api/create-order',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiCheckPaymentRoute = ApiCheckPaymentRouteImport.update({
+  id: '/api/check-payment',
+  path: '/api/check-payment',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiWebhookKirapayRoute = ApiWebhookKirapayRouteImport.update({
+  id: '/api/webhook/kirapay',
+  path: '/api/webhook/kirapay',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/api/check-payment': typeof ApiCheckPaymentRoute
+  '/api/create-order': typeof ApiCreateOrderRoute
+  '/api/webhook/kirapay': typeof ApiWebhookKirapayRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/api/check-payment': typeof ApiCheckPaymentRoute
+  '/api/create-order': typeof ApiCreateOrderRoute
+  '/api/webhook/kirapay': typeof ApiWebhookKirapayRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/api/check-payment': typeof ApiCheckPaymentRoute
+  '/api/create-order': typeof ApiCreateOrderRoute
+  '/api/webhook/kirapay': typeof ApiWebhookKirapayRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/api/check-payment'
+    | '/api/create-order'
+    | '/api/webhook/kirapay'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/api/check-payment' | '/api/create-order' | '/api/webhook/kirapay'
+  id:
+    | '__root__'
+    | '/'
+    | '/api/check-payment'
+    | '/api/create-order'
+    | '/api/webhook/kirapay'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ApiCheckPaymentRoute: typeof ApiCheckPaymentRoute
+  ApiCreateOrderRoute: typeof ApiCreateOrderRoute
+  ApiWebhookKirapayRoute: typeof ApiWebhookKirapayRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,12 +87,46 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/create-order': {
+      id: '/api/create-order'
+      path: '/api/create-order'
+      fullPath: '/api/create-order'
+      preLoaderRoute: typeof ApiCreateOrderRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/check-payment': {
+      id: '/api/check-payment'
+      path: '/api/check-payment'
+      fullPath: '/api/check-payment'
+      preLoaderRoute: typeof ApiCheckPaymentRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/webhook/kirapay': {
+      id: '/api/webhook/kirapay'
+      path: '/api/webhook/kirapay'
+      fullPath: '/api/webhook/kirapay'
+      preLoaderRoute: typeof ApiWebhookKirapayRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ApiCheckPaymentRoute: ApiCheckPaymentRoute,
+  ApiCreateOrderRoute: ApiCreateOrderRoute,
+  ApiWebhookKirapayRoute: ApiWebhookKirapayRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
