@@ -16,7 +16,7 @@ export function FinalCta() {
             </p>
             <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
               <a
-                href="#demo"
+                href="/pos"
                 className="inline-flex items-center gap-2 rounded-xl bg-gradient-brand px-5 py-3 text-sm font-semibold text-[#0a0a0a] hover:opacity-95 transition"
               >
                 Launch POS

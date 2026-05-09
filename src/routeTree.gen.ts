@@ -9,38 +9,161 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SetupRouteImport } from './routes/setup'
+import { Route as RegisterRouteImport } from './routes/register'
+import { Route as PosRouteImport } from './routes/pos'
+import { Route as LoginRouteImport } from './routes/login'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ApiCreateOrderRouteImport } from './routes/api/create-order'
+import { Route as ApiCheckPaymentRouteImport } from './routes/api/check-payment'
+import { Route as ApiWebhookKirapayRouteImport } from './routes/api/webhook.kirapay'
 
+const SetupRoute = SetupRouteImport.update({
+  id: '/setup',
+  path: '/setup',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RegisterRoute = RegisterRouteImport.update({
+  id: '/register',
+  path: '/register',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PosRoute = PosRouteImport.update({
+  id: '/pos',
+  path: '/pos',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiCreateOrderRoute = ApiCreateOrderRouteImport.update({
+  id: '/api/create-order',
+  path: '/api/create-order',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiCheckPaymentRoute = ApiCheckPaymentRouteImport.update({
+  id: '/api/check-payment',
+  path: '/api/check-payment',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiWebhookKirapayRoute = ApiWebhookKirapayRouteImport.update({
+  id: '/api/webhook/kirapay',
+  path: '/api/webhook/kirapay',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/login': typeof LoginRoute
+  '/pos': typeof PosRoute
+  '/register': typeof RegisterRoute
+  '/setup': typeof SetupRoute
+  '/api/check-payment': typeof ApiCheckPaymentRoute
+  '/api/create-order': typeof ApiCreateOrderRoute
+  '/api/webhook/kirapay': typeof ApiWebhookKirapayRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/login': typeof LoginRoute
+  '/pos': typeof PosRoute
+  '/register': typeof RegisterRoute
+  '/setup': typeof SetupRoute
+  '/api/check-payment': typeof ApiCheckPaymentRoute
+  '/api/create-order': typeof ApiCreateOrderRoute
+  '/api/webhook/kirapay': typeof ApiWebhookKirapayRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/login': typeof LoginRoute
+  '/pos': typeof PosRoute
+  '/register': typeof RegisterRoute
+  '/setup': typeof SetupRoute
+  '/api/check-payment': typeof ApiCheckPaymentRoute
+  '/api/create-order': typeof ApiCreateOrderRoute
+  '/api/webhook/kirapay': typeof ApiWebhookKirapayRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/login'
+    | '/pos'
+    | '/register'
+    | '/setup'
+    | '/api/check-payment'
+    | '/api/create-order'
+    | '/api/webhook/kirapay'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/login'
+    | '/pos'
+    | '/register'
+    | '/setup'
+    | '/api/check-payment'
+    | '/api/create-order'
+    | '/api/webhook/kirapay'
+  id:
+    | '__root__'
+    | '/'
+    | '/login'
+    | '/pos'
+    | '/register'
+    | '/setup'
+    | '/api/check-payment'
+    | '/api/create-order'
+    | '/api/webhook/kirapay'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  LoginRoute: typeof LoginRoute
+  PosRoute: typeof PosRoute
+  RegisterRoute: typeof RegisterRoute
+  SetupRoute: typeof SetupRoute
+  ApiCheckPaymentRoute: typeof ApiCheckPaymentRoute
+  ApiCreateOrderRoute: typeof ApiCreateOrderRoute
+  ApiWebhookKirapayRoute: typeof ApiWebhookKirapayRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/setup': {
+      id: '/setup'
+      path: '/setup'
+      fullPath: '/setup'
+      preLoaderRoute: typeof SetupRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/register': {
+      id: '/register'
+      path: '/register'
+      fullPath: '/register'
+      preLoaderRoute: typeof RegisterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pos': {
+      id: '/pos'
+      path: '/pos'
+      fullPath: '/pos'
+      preLoaderRoute: typeof PosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,11 +171,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/create-order': {
+      id: '/api/create-order'
+      path: '/api/create-order'
+      fullPath: '/api/create-order'
+      preLoaderRoute: typeof ApiCreateOrderRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/check-payment': {
+      id: '/api/check-payment'
+      path: '/api/check-payment'
+      fullPath: '/api/check-payment'
+      preLoaderRoute: typeof ApiCheckPaymentRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/webhook/kirapay': {
+      id: '/api/webhook/kirapay'
+      path: '/api/webhook/kirapay'
+      fullPath: '/api/webhook/kirapay'
+      preLoaderRoute: typeof ApiWebhookKirapayRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  LoginRoute: LoginRoute,
+  PosRoute: PosRoute,
+  RegisterRoute: RegisterRoute,
+  SetupRoute: SetupRoute,
+  ApiCheckPaymentRoute: ApiCheckPaymentRoute,
+  ApiCreateOrderRoute: ApiCreateOrderRoute,
+  ApiWebhookKirapayRoute: ApiWebhookKirapayRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
