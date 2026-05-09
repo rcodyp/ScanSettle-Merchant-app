@@ -50,13 +50,13 @@ export function Nav() {
           </nav>
           <div className="flex items-center gap-2">
             <a
-              href="#demo"
+              href="/pos"
               className="hidden sm:inline-flex text-sm text-muted-foreground hover:text-foreground transition-colors px-3 py-2"
             >
               Sign in
             </a>
             <a
-              href="#demo"
+              href="/pos"
               className="inline-flex items-center gap-1.5 rounded-xl bg-gradient-brand px-3.5 py-2 text-sm font-medium text-[#0a0a0a] hover:opacity-95 transition-opacity"
             >
               Launch POS
