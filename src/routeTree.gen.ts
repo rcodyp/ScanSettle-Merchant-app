@@ -9,11 +9,35 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SetupRouteImport } from './routes/setup'
+import { Route as RegisterRouteImport } from './routes/register'
+import { Route as PosRouteImport } from './routes/pos'
+import { Route as LoginRouteImport } from './routes/login'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ApiCreateOrderRouteImport } from './routes/api/create-order'
 import { Route as ApiCheckPaymentRouteImport } from './routes/api/check-payment'
 import { Route as ApiWebhookKirapayRouteImport } from './routes/api/webhook.kirapay'
 
+const SetupRoute = SetupRouteImport.update({
+  id: '/setup',
+  path: '/setup',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RegisterRoute = RegisterRouteImport.update({
+  id: '/register',
+  path: '/register',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PosRoute = PosRouteImport.update({
+  id: '/pos',
+  path: '/pos',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -37,12 +61,20 @@ const ApiWebhookKirapayRoute = ApiWebhookKirapayRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/login': typeof LoginRoute
+  '/pos': typeof PosRoute
+  '/register': typeof RegisterRoute
+  '/setup': typeof SetupRoute
   '/api/check-payment': typeof ApiCheckPaymentRoute
   '/api/create-order': typeof ApiCreateOrderRoute
   '/api/webhook/kirapay': typeof ApiWebhookKirapayRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/login': typeof LoginRoute
+  '/pos': typeof PosRoute
+  '/register': typeof RegisterRoute
+  '/setup': typeof SetupRoute
   '/api/check-payment': typeof ApiCheckPaymentRoute
   '/api/create-order': typeof ApiCreateOrderRoute
   '/api/webhook/kirapay': typeof ApiWebhookKirapayRoute
@@ -50,6 +82,10 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/login': typeof LoginRoute
+  '/pos': typeof PosRoute
+  '/register': typeof RegisterRoute
+  '/setup': typeof SetupRoute
   '/api/check-payment': typeof ApiCheckPaymentRoute
   '/api/create-order': typeof ApiCreateOrderRoute
   '/api/webhook/kirapay': typeof ApiWebhookKirapayRoute
@@ -58,14 +94,30 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/login'
+    | '/pos'
+    | '/register'
+    | '/setup'
     | '/api/check-payment'
     | '/api/create-order'
     | '/api/webhook/kirapay'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/api/check-payment' | '/api/create-order' | '/api/webhook/kirapay'
+  to:
+    | '/'
+    | '/login'
+    | '/pos'
+    | '/register'
+    | '/setup'
+    | '/api/check-payment'
+    | '/api/create-order'
+    | '/api/webhook/kirapay'
   id:
     | '__root__'
     | '/'
+    | '/login'
+    | '/pos'
+    | '/register'
+    | '/setup'
     | '/api/check-payment'
     | '/api/create-order'
     | '/api/webhook/kirapay'
@@ -73,6 +125,10 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  LoginRoute: typeof LoginRoute
+  PosRoute: typeof PosRoute
+  RegisterRoute: typeof RegisterRoute
+  SetupRoute: typeof SetupRoute
   ApiCheckPaymentRoute: typeof ApiCheckPaymentRoute
   ApiCreateOrderRoute: typeof ApiCreateOrderRoute
   ApiWebhookKirapayRoute: typeof ApiWebhookKirapayRoute
@@ -80,6 +136,34 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/setup': {
+      id: '/setup'
+      path: '/setup'
+      fullPath: '/setup'
+      preLoaderRoute: typeof SetupRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/register': {
+      id: '/register'
+      path: '/register'
+      fullPath: '/register'
+      preLoaderRoute: typeof RegisterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pos': {
+      id: '/pos'
+      path: '/pos'
+      fullPath: '/pos'
+      preLoaderRoute: typeof PosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -113,6 +197,10 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  LoginRoute: LoginRoute,
+  PosRoute: PosRoute,
+  RegisterRoute: RegisterRoute,
+  SetupRoute: SetupRoute,
   ApiCheckPaymentRoute: ApiCheckPaymentRoute,
   ApiCreateOrderRoute: ApiCreateOrderRoute,
   ApiWebhookKirapayRoute: ApiWebhookKirapayRoute,
