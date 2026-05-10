@@ -2,7 +2,7 @@ import { Logo } from "./Logo";
 
 const cols = [
   { title: "Product", links: ["Features", "Live Demo", "Pricing", "Changelog"] },
-  { title: "Developers", links: ["Docs", "API Reference", "GitHub", "Webhooks"] },
+  // { title: "Developers", links: ["Docs", "API Reference", "GitHub", "Webhooks"] },
   { title: "Company", links: ["About", "Contact", "Press kit", "Careers"] },
   { title: "Legal", links: ["Privacy Policy", "Terms of Service", "Security", "Compliance"] },
 ];

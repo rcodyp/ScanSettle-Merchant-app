@@ -1,3 +1,5 @@
+"use client";
+
 import { motion } from "framer-motion";
 import { QRCodeSVG } from "qrcode.react";
 

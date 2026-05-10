@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128" role="img" aria-labelledby="logoTitle">
+  <title id="logoTitle">Site logo</title>
+  <rect width="128" height="128" rx="20" fill="#0ea5a4" />
+  <g transform="translate(32,32)" fill="#fff">
+    <circle cx="32" cy="32" r="18" />
+  </g>
+</svg>

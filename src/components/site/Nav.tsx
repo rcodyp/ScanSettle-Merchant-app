@@ -1,4 +1,6 @@
-import { Link } from "@tanstack/react-router";
+"use client";
+
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Logo } from "./Logo";
 
@@ -16,7 +18,6 @@ export function Nav() {
     { href: "#features", label: "Features" },
     { href: "#kirapay", label: "KIRAPAY" },
     { href: "#demo", label: "Live Demo" },
-    { href: "#developers", label: "Developers" },
   ];
 
   return (
@@ -31,7 +32,7 @@ export function Nav() {
             scrolled ? "glass-strong" : ""
           }`}
         >
-          <Link to="/" className="flex items-center gap-2.5">
+          <Link href="/" className="flex items-center gap-2.5">
             <Logo className="h-7 w-7" />
             <span className="font-semibold tracking-tight text-foreground">
               ScanSettle
