@@ -1,12 +1,15 @@
-import { getOrder } from "@/lib/orders.server";
+import { NextResponse } from "next/server";
+const api = process.env.KIRAPAY_API_KEY;
 
 export async function GET(request: Request) {
-  const url = new URL(request.url);
-  const id = url.searchParams.get("orderId");
-  if (!id) return Response.json({ error: "Missing orderId" }, { status: 400 });
+  const response = await fetch("https://api.kira-pay.com/api/wallet/transactions/stats", {
+    headers: {
+      "x-api-key": api,
+    }
+  });
 
-  const order = getOrder(id);
-  if (!order) return Response.json({ error: "Not found" }, { status: 404 });
+  const data = await response.json();
+  console.log(data);
 
-  return Response.json({ order });
+  return NextResponse.json(data);
 }

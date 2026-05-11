@@ -69,7 +69,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           )}
         </div>
       </header>
-      <main className="max-w-6xl mx-auto px-4 py-8">{children}</main>
+      <main className="max-w mx-auto px-0 py-0">{children}</main>
     </div>
   );
 }
