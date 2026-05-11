@@ -11,9 +11,13 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const [email, setEmail] = useState<string | null>(null);
 
-  useEffect(() => {
-    setEmail(getAuth()?.email ?? null);
-  }, [pathname]);
+  // useEffect(() => {
+  //   const auth = getAuth();
+  //   setEmail(auth?.email ?? null);
+  //   if (!auth) {
+  //     router.push("/login");
+  //   }
+  // }, [pathname, router]);
 
   const link = (to: string, label: string) => (
     <Link
@@ -37,6 +41,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           </Link>
           {email ? (
             <nav className="flex items-center gap-1">
+              {link("/dashboard", "Dashboard")}
               {link("/pos", "POS")}
               {link("/setup", "Settings")}
               <span className="hidden sm:inline text-xs text-muted-foreground ml-3 mr-2">

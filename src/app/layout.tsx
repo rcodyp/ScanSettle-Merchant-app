@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import type { ReactNode } from "react";
 
 import "../styles.css";
+import { SolanaProvider } from "./wallet/SolanaProvider";
+import "@solana/wallet-adapter-react-ui/styles.css";
 
 export const metadata: Metadata = {
   title: {
@@ -31,7 +33,11 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
         />
       </head>
-      <body className="dark">{children}</body>
+      <body className="dark">
+        <SolanaProvider>
+          {children}
+        </SolanaProvider>
+      </body>
     </html>
   );
 }

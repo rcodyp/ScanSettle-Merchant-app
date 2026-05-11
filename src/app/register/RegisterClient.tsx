@@ -3,9 +3,9 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-
 import { AppShell } from "@/components/app/AppShell";
 import { signUp } from "@/lib/merchant-store";
+import Wallet from "../wallet/Wallet";
 
 export function RegisterClient() {
   const router = useRouter();
@@ -69,6 +69,10 @@ export function RegisterClient() {
             </Link>
           </p>
         </form>
+        <br />
+        <hr />
+        <br />
+        <Wallet />
       </div>
     </AppShell>
   );

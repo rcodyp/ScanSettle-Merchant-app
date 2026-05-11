@@ -3,8 +3,26 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Logo } from "./Logo";
+import { useWallet } from "@solana/wallet-adapter-react";
+import { useRouter } from "next/navigation";
+import Wallet from "@/app/wallet/Wallet";
+import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
 
 export function Nav() {
+  const { connected } = useWallet();
+  const [isconnected, setConnected] = useState(false);
+
+  const router = useRouter();
+
+  useEffect(() => {
+    setConnected(connected);
+    console.log(connected ? "Wallet connected" : "Wallet disconnected");
+  }, [connected]);
+
+  const DashboardPage = () => {
+    router.push("/dashboard");
+  };
+
   const [scrolled, setScrolled] = useState(false);
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -34,36 +52,63 @@ export function Nav() {
         >
           <Link href="/" className="flex items-center gap-2.5">
             <Logo className="h-7 w-7" />
-            <span className="font-semibold tracking-tight text-foreground">
-              ScanSettle
-            </span>
+            <span className="font-semibold tracking-tight text-foreground">ScanSettle</span>
           </Link>
           <nav className="hidden md:flex items-center gap-7 text-sm text-muted-foreground">
             {links.map((l) => (
-              <a
-                key={l.href}
-                href={l.href}
-                className="hover:text-foreground transition-colors"
-              >
+              <a key={l.href} href={l.href} className="hover:text-foreground transition-colors">
                 {l.label}
               </a>
             ))}
           </nav>
-          <div className="flex items-center gap-2">
-            <a
-              href="/pos"
-              className="hidden sm:inline-flex text-sm text-muted-foreground hover:text-foreground transition-colors px-3 py-2"
-            >
-              Sign in
-            </a>
-            <a
-              href="/pos"
-              className="inline-flex items-center gap-1.5 rounded-xl bg-gradient-brand px-3.5 py-2 text-sm font-medium text-[#0a0a0a] hover:opacity-95 transition-opacity"
-            >
-              Launch POS
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-            </a>
-          </div>
+          {isconnected ? (
+            <div className="flex items-center gap-2">
+              <div>
+                <WalletMultiButton />
+              </div>
+              <a
+                href="/dashboard"
+                className="inline-flex items-center gap-1.5 rounded-xl bg-gradient-brand px-3.5 py-2 text-sm font-medium text-[#0a0a0a] hover:opacity-95 transition-opacity"
+              >
+                Dashboard
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                >
+                  <path d="M5 12h14M13 6l6 6-6 6" />
+                </svg>
+              </a>
+            </div>
+          ) : (
+            <div className="flex items-center gap-2">
+              <a
+                href="/pos"
+                className="hidden sm:inline-flex text-sm text-muted-foreground hover:text-foreground transition-colors px-3 py-2"
+              >
+                Sign in
+              </a>
+              <a
+                href="/pos"
+                className="inline-flex items-center gap-1.5 rounded-xl bg-gradient-brand px-3.5 py-2 text-sm font-medium text-[#0a0a0a] hover:opacity-95 transition-opacity"
+              >
+                Launch POS
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                >
+                  <path d="M5 12h14M13 6l6 6-6 6" />
+                </svg>
+              </a>
+            </div>
+          )}
         </div>
       </div>
     </header>

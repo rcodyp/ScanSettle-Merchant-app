@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     title: "ScanSettle — Cross-chain crypto POS for merchants",
     description: "One QR code. Any wallet. Any chain. Settle in USDC on Solana.",
   },
-};
+}; 
 
 export default function HomePage() {
   return (

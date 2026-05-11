@@ -5,7 +5,8 @@ import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
 import { AppShell } from "@/components/app/AppShell";
-import { getAuth, getMerchant, type Merchant } from "@/lib/merchant-store";
+// import { getAuth, getMerchant, type Merchant } from "@/lib/merchant-store";
+import { getMerchant, type Merchant } from "@/lib/merchant-store";
 
 const CURRENCIES = ["USD", "EUR", "GBP", "AUD", "SGD"];
 
@@ -34,49 +35,49 @@ export function PosClient() {
   const [error, setError] = useState("");
   const pollRef = useRef<number | null>(null);
 
-  useEffect(() => {
-    if (!getAuth()) {
-      router.push("/login");
-      return;
-    }
-    const currentMerchant = getMerchant();
-    if (!currentMerchant?.walletAddress) {
-      router.push("/setup");
-      return;
-    }
-    setMerchantState(currentMerchant);
-  }, [router]);
+  // useEffect(() => {
+  //   // if (!getAuth()) {
+  //   //   router.push("/login");
+  //   //   return;
+  //   // }
+  //   const currentMerchant = getMerchant();
+  //   if (!currentMerchant?.walletAddress) {
+  //     router.push("/setup");
+  //     return;
+  //   }
+  //   setMerchantState(currentMerchant);
+  // }, [router]);
 
-  useEffect(() => {
-    if (!checkoutUrl) return;
-    QRCode.toDataURL(checkoutUrl, {
-      margin: 1,
-      width: 360,
-      color: { dark: "#0b0f17", light: "#ffffff" },
-    }).then(setQrDataUrl);
-  }, [checkoutUrl]);
+  // useEffect(() => {
+  //   if (!checkoutUrl) return;
+  //   QRCode.toDataURL(checkoutUrl, {
+  //     margin: 1,
+  //     width: 360,
+  //     color: { dark: "#0b0f17", light: "#ffffff" },
+  //   }).then(setQrDataUrl);
+  // }, [checkoutUrl]);
 
-  useEffect(() => {
-    if (!order || order.status === "paid") {
-      if (pollRef.current) window.clearInterval(pollRef.current);
-      return;
-    }
-    pollRef.current = window.setInterval(async () => {
-      try {
-        const response = await fetch(`/api/check-payment?orderId=${order.id}`);
-        if (!response.ok) return;
-        const data = await response.json();
-        if (data.order?.status === "paid") {
-          setOrder((current) => (current ? { ...current, ...data.order } : current));
-        }
-      } catch {
-        // Ignore polling errors in the demo flow.
-      }
-    }, 3000);
-    return () => {
-      if (pollRef.current) window.clearInterval(pollRef.current);
-    };
-  }, [order]);
+  // useEffect(() => {
+  //   if (!order || order.status === "paid") {
+  //     if (pollRef.current) window.clearInterval(pollRef.current);
+  //     return;
+  //   }
+  //   pollRef.current = window.setInterval(async () => {
+  //     try {
+  //       const response = await fetch(`/api/check-payment?orderId=${order.id}`);
+  //       if (!response.ok) return;
+  //       const data = await response.json();
+  //       if (data.order?.status === "paid") {
+  //         setOrder((current) => (current ? { ...current, ...data.order } : current));
+  //       }
+  //     } catch {
+  //       // Ignore polling errors in the demo flow.
+  //     }
+  //   }, 3000);
+  //   return () => {
+  //     if (pollRef.current) window.clearInterval(pollRef.current);
+  //   };
+  // }, [order]);
 
   const generate = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -120,22 +121,22 @@ export function PosClient() {
     setLabel("");
   };
 
-  if (!merchant) {
-    return (
-      <AppShell>
-        <p className="text-muted-foreground">Loading…</p>
-      </AppShell>
-    );
-  }
+  // if (!merchant) {
+  //   return (
+  //     <AppShell>
+  //       <p className="text-muted-foreground">Loading…</p>
+  //     </AppShell>
+  //   );
+  // }
 
   return (
     <AppShell>
       <div className="grid gap-6 lg:grid-cols-2 lg:gap-10">
         <section>
           <h1 className="text-2xl font-semibold tracking-tight">New payment</h1>
-          <p className="mt-1 text-sm text-muted-foreground">
+          {/* <p className="mt-1 text-sm text-muted-foreground">
             Settling to <span className="text-foreground">{merchant.settlementToken} on {merchant.settlementChain}</span>
-          </p>
+          </p> */}
 
           <form onSubmit={generate} className="mt-6 space-y-4">
             <div className="grid grid-cols-3 gap-3">

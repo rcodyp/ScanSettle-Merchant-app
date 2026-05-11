@@ -6,6 +6,7 @@ import { useState } from "react";
 
 import { AppShell } from "@/components/app/AppShell";
 import { getMerchant, signIn } from "@/lib/merchant-store";
+import Wallet from "../wallet/Wallet";
 
 export function LoginClient() {
   const router = useRouter();
@@ -28,7 +29,9 @@ export function LoginClient() {
     <AppShell>
       <div className="mx-auto mt-8 max-w-md">
         <h1 className="text-2xl font-semibold tracking-tight">Sign in</h1>
-        <p className="mt-1 text-sm text-muted-foreground">Welcome back. Sign in to your merchant POS.</p>
+        <p className="mt-1 text-sm text-muted-foreground">
+          Welcome back. Sign in to your merchant POS.
+        </p>
         <form onSubmit={submit} className="mt-6 space-y-4">
           <label className="block">
             <span className="text-sm text-muted-foreground">Email</span>
@@ -59,6 +62,10 @@ export function LoginClient() {
             </Link>
           </p>
         </form>
+        <br />
+        <hr />
+        <br />
+        <Wallet />
       </div>
     </AppShell>
   );
