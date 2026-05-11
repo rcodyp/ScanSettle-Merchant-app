@@ -9,24 +9,29 @@ export async function POST(request: Request) {
 
     const amount = Number(body.amount);
     const currency = String(body.currency);
-    console.log(typeof amount, typeof currency);
+    const receiver = String(body.receiver || "").trim();
+    const label = String(body.label || "").trim();
     const api = process.env.KIRAPAY_API_KEY;
-    console.log("API Key:", api);
+
+    if (!receiver) {
+      return NextResponse.json({ error: "Receiver wallet address is required" }, { status: 400 });
+    }
+
     const response = await fetch("https://api.kira-pay.com/api/link/generate", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "x-api-key": api,
+        ...(api ? { "x-api-key": api } : {}),
       },
       body: JSON.stringify({
         tokenOut: {
           chainId: "sol",
         },
-        receiver: "HRbbo6aUt8yaEw9wPGbBwaHtkRRRnmT3rF7oyJKg38Yj",
+        receiver: receiver,
         originalPrice: amount,
         fiatCurrency: currency,
-        name: "Payment for Order #123",
-        customOrderId: "ORDER-123456",
+        name: label || "Payment for Order",
+        customOrderId: `ORDER-${Date.now()}`,
         redirectUrl: "https://dashboard.kira-pay.com/settings",
         type: "single_use",
         isViewAsCrypto: false,
@@ -34,7 +39,6 @@ export async function POST(request: Request) {
     });
 
     const data = await response.json();
-    console.log(data);
     
      return NextResponse.json(data, { status: response.status });
   } catch {

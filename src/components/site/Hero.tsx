@@ -6,7 +6,7 @@ import { QRCodeSVG } from "qrcode.react";
 const tokens = [
   { sym: "ETH", color: "#627EEA", x: "8%", y: "18%", d: 0 },
   { sym: "SOL", color: "#14F195", x: "85%", y: "12%", d: 0.4 },
-  { sym: "USDC", color: "#2775CA", x: "92%", y: "62%", d: 0.8 },
+  { sym: "SOL", color: "#2775CA", x: "92%", y: "62%", d: 0.8 },
   { sym: "MATIC", color: "#8247E5", x: "5%", y: "70%", d: 1.2 },
   { sym: "BTC", color: "#F7931A", x: "78%", y: "85%", d: 0.6 },
 ];
@@ -55,17 +55,17 @@ export function Hero() {
           <h1 className="text-4xl sm:text-6xl md:text-7xl font-semibold tracking-[-0.035em] leading-[1.02]">
             Accept any crypto.
             <br />
-            <span className="text-gradient-brand">Settle in USDC on Solana.</span>
+            <span className="text-gradient-brand">Settle in SOL on Solana.</span>
           </h1>
           <p className="mt-6 text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
             ScanSettle lets physical merchants accept payments from any wallet, token, or
-            blockchain — while automatically settling into USDC on Solana. One QR code.
+            blockchain — while automatically settling into SOL on Solana. One QR code.
             Any wallet. Any chain.
           </p>
 
           <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
             <a
-              href="/pos"
+              href="/dashboard"
               className="inline-flex items-center gap-2 rounded-xl bg-gradient-brand px-5 py-3 text-sm font-medium text-[#0a0a0a] hover:opacity-95 transition"
             >
               Start Accepting Payments
@@ -160,7 +160,7 @@ function HeroDashboard() {
                   ))}
                 </div>
                 <div className="mt-4 text-xs text-muted-foreground">
-                  Pay in <span className="text-foreground">ETH · SOL · USDC · MATIC · BTC</span> from any chain.
+                  Pay in <span className="text-foreground">ETH · SOL · SOL · MATIC · BTC</span> from any chain.
                 </div>
               </div>
             </div>
@@ -176,7 +176,7 @@ function HeroDashboard() {
             <div className="mt-5 flex items-center justify-between rounded-xl glass px-3 py-2.5">
               <div className="text-xs">
                 <div className="text-muted-foreground">Settlement</div>
-                <div className="font-semibold">42.00 USDC <span className="text-muted-foreground font-normal">on Solana</span></div>
+                <div className="font-semibold">42.00 SOL <span className="text-muted-foreground font-normal">on Solana</span></div>
               </div>
               <div className="flex items-center gap-1.5 text-[11px] text-[var(--solana-green)]">
                 <span className="h-1.5 w-1.5 rounded-full bg-[var(--solana-green)] animate-pulse" />
@@ -227,7 +227,7 @@ function ChainRouting() {
         })}
         <circle cx="270" cy="100" r="14" fill="#14F195" opacity="0.15" />
         <circle cx="270" cy="100" r="9" fill="#14F195" />
-        <text x="270" y="135" textAnchor="middle" fill="#cfd2dc" fontSize="11" fontFamily="Inter">USDC · Solana</text>
+        <text x="270" y="135" textAnchor="middle" fill="#cfd2dc" fontSize="11" fontFamily="Inter">SOL · Solana</text>
       </svg>
     </div>
   );

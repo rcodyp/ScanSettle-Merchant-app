@@ -3,11 +3,13 @@
 import { Card } from "@/components/ui/card";
 import { QrCode, ArrowLeft, Copy, Check } from "lucide-react";
 import { useState, FormEvent, useEffect } from "react";
+import { useWallet } from "@solana/wallet-adapter-react";
 import QRCode from "react-qr-code";
 
 const CURRENCIES = ["USD", "EUR", "GBP", "AUD", "SGD"];
 
 export default function PaymentFlow() {
+  const { publicKey, connected } = useWallet();
   const [step, setStep] = useState<1 | 2 | 3>(1);
   const [amount, setAmount] = useState("");
   const [label, setLabel] = useState("");
@@ -35,6 +37,11 @@ export default function PaymentFlow() {
       return;
     }
 
+    if (!connected || !publicKey) {
+      setError("Connect your wallet before generating a payment link.");
+      return;
+    }
+
     setLoading(true);
     setError("");
 
@@ -42,7 +49,7 @@ export default function PaymentFlow() {
       const response = await fetch("/api/create-order", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ amount, currency, label }),
+        body: JSON.stringify({ amount, currency, label, receiver: publicKey.toBase58() }),
       });
       const data = await response.json();
       const url = data.data?.url || data.url;

@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   description: "Cross-chain crypto POS for physical merchants.",
   openGraph: {
     title: "ScanSettle",
-    description: "Accept any crypto. Settle in USDC on Solana.",
+    description: "Accept any crypto. Settle in SOL on Solana.",
     type: "website",
   },
   twitter: {

@@ -18,7 +18,7 @@ export function Footer() {
               <span className="font-semibold tracking-tight">ScanSettle</span>
             </div>
             <p className="mt-4 text-sm text-muted-foreground max-w-sm leading-relaxed">
-              Cross-chain crypto payments for real-world merchants. One QR code, any wallet, any chain — settled in USDC on Solana.
+              Cross-chain crypto payments for real-world merchants. One QR code, any wallet, any chain — settled in SOL on Solana.
             </p>
             <div className="mt-5 inline-flex items-center gap-2 rounded-full glass px-3 py-1.5 text-[11px] text-muted-foreground">
               <span className="h-1.5 w-1.5 rounded-full bg-[var(--solana-green)] animate-pulse" />

@@ -12,12 +12,12 @@ import { Problem } from "@/components/site/Problem";
 import { Trust } from "@/components/site/Trust";
 
 export const metadata: Metadata = {
-  title: "ScanSettle — Accept any crypto. Settle in USDC on Solana.",
+  title: "ScanSettle — Accept any crypto. Settle in SOL on Solana.",
   description:
-    "ScanSettle is a cross-chain crypto POS for physical merchants. Accept payments from any wallet, any token, any chain — and always settle in USDC on Solana.",
+    "ScanSettle is a cross-chain crypto POS for physical merchants. Accept payments from any wallet, any token, any chain — and always settle in SOL on Solana.",
   openGraph: {
     title: "ScanSettle — Cross-chain crypto POS for merchants",
-    description: "One QR code. Any wallet. Any chain. Settle in USDC on Solana.",
+    description: "One QR code. Any wallet. Any chain. Settle in SOL on Solana.",
   },
 }; 
 

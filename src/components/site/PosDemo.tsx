@@ -123,7 +123,7 @@ export function PosDemo() {
 
               <div className="mt-6 grid grid-cols-3 gap-2 text-[11px]">
                 <Mini label="Network" value="Solana" />
-                <Mini label="Settle" value="USDC" />
+                <Mini label="Settle" value="SOL" />
                 <Mini label="Fee" value="0.3%" />
               </div>
             </div>
@@ -179,7 +179,7 @@ export function PosDemo() {
                       </div>
                       <div className="mt-5 text-base font-semibold">Payment received</div>
                       <div className="text-xs text-muted-foreground mt-1">
-                        Settled <span className="text-foreground font-medium">{amount} USDC</span> on Solana
+                        Settled <span className="text-foreground font-medium">{amount} SOL</span> on Solana
                       </div>
                       <div className="mt-3 inline-flex items-center gap-1.5 rounded-md glass px-2 py-1 text-[11px] text-muted-foreground">
                         tx · 4f8…a91 <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M7 17L17 7M9 7h8v8"/></svg>

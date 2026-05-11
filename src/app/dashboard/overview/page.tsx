@@ -23,40 +23,23 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Card } from "@/components/ui/card";
-import {
-  ArrowUpRight,
-  ArrowDownRight,
-  TrendingUp,
-  Wallet,
-  X
-} from "lucide-react";
+import { ArrowUpRight, ArrowDownRight, TrendingUp, Wallet, X } from "lucide-react";
 
 const COLORS = ["#00D9FF", "#00F5A0", "#FFD700", "#FF6B6B"];
 
-const chartData = [
-  { date: "Jan 1", sales: 4000, orders: 24 },
-  { date: "Jan 2", sales: 3000, orders: 18 },
-  { date: "Jan 3", sales: 2000, orders: 14 },
-  { date: "Jan 4", sales: 2780, orders: 16 },
-  { date: "Jan 5", sales: 1890, orders: 11 },
-  { date: "Jan 6", sales: 2390, orders: 15 },
-  { date: "Jan 7", sales: 3490, orders: 21 },
-];
-
-const revenueByToken = [
-  { name: "USDC", value: 6500 },
-  { name: "SOL", value: 3200 },
-  { name: "USDT", value: 2100 },
-  { name: "Other", value: 650 },
-];
-
-const recentTransactions = [
-  { id: "ss_xyz123", amount: "$250.00", token: "USDC", status: "Completed", time: "2 min ago" },
-  { id: "ss_abc456", amount: "$125.50", token: "SOL", status: "Completed", time: "15 min ago" },
-  { id: "ss_def789", amount: "$89.99", token: "USDC", status: "Completed", time: "45 min ago" },
-  { id: "ss_ghi012", amount: "$350.00", token: "USDT", status: "Pending", time: "1 hour ago" },
-  { id: "ss_jkl345", amount: "$199.99", token: "USDC", status: "Completed", time: "2 hours ago" },
-];
+function MetricCard({
+  label,
+  value,
+  change,
+  icon,
+  highlight,
+}: {
+  label: string;
+  value: string | number;
+  change?: string;
+  icon?: React.ReactNode;
+  highlight?: "warning";
+}) 
 
 export default function OverviewSection({ auth, merchant }: { auth: any; merchant: any }) {
   const [totalTransactions, setTotalTransactions] = useState(0);
@@ -64,6 +47,8 @@ export default function OverviewSection({ auth, merchant }: { auth: any; merchan
   const [successfulTransactions, setSuccessfulTransactions] = useState(0);
   const [totalRevenue, setTotalRevenue] = useState(0);
   const [cancelledTransactions, setCancelledTransactions] = useState(0);
+  const [recentTransactions, setRecentTransactions] = useState<any[]>([]);
+  const [chartData, setChartData] = useState<any[]>([]);
 
   useEffect(() => {
     const fetchTransactions = async () => {
@@ -81,6 +66,32 @@ export default function OverviewSection({ auth, merchant }: { auth: any; merchan
         setTotalRevenue(transactions.data.totalAmount);
         setCancelledTransactions(transactions.data.cancelledTransactions);
         console.log("Fetched transactions:", transactions);
+
+        const Sales = await fetch(`/api/sales-trend`, {
+          method: "GET",
+        });
+        if (!Sales.ok) {
+          throw new Error("Failed to fetch sales trend");
+        }
+        const salesData = await Sales.json();
+        setChartData(
+          salesData.data.result.map((item: any) => ({
+            date: item.label,
+            sales: item.totalPrice,
+          })),
+        );
+        console.log("Fetched sales trend:", salesData);
+
+        const recentTransReport = await fetch(`/api/transactions?page=1&limit=10`, {
+          method: "GET",
+        });
+        if (!recentTransReport.ok) {
+          throw new Error("Failed to fetch recent transactions");
+        }
+        const recentTransData = await recentTransReport.json();
+        console.log("Fetched recent transactions:", recentTransData);
+
+        setRecentTransactions(recentTransData.data?.transactions ?? []);
       } catch (error) {
         console.error("Error fetching transactions:", error);
       }
@@ -127,7 +138,7 @@ export default function OverviewSection({ auth, merchant }: { auth: any; merchan
         />
       </div>
 
-      <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
+      <div className="grid grid-cols-1 gap-6 ">
         <Card className="lg:col-span-2 p-4 md:p-6">
           <div className="mb-6">
             <h2 className="text-lg font-semibold">Sales Trend</h2>
@@ -138,11 +149,17 @@ export default function OverviewSection({ auth, merchant }: { auth: any; merchan
               <CartesianGrid strokeDasharray="3 3" stroke="#333" />
               <XAxis dataKey="date" stroke="#666" />
               <YAxis stroke="#666" />
+
               <Tooltip
-                contentStyle={{ backgroundColor: "#1a1a1a", border: "1px solid #333" }}
+                contentStyle={{
+                  backgroundColor: "#1a1a1a",
+                  border: "1px solid #333",
+                }}
                 labelStyle={{ color: "#fff" }}
               />
+
               <Legend />
+
               <Line
                 type="monotone"
                 dataKey="sales"
@@ -153,42 +170,6 @@ export default function OverviewSection({ auth, merchant }: { auth: any; merchan
               />
             </LineChart>
           </ResponsiveContainer>
-        </Card>
-
-        <Card className="p-4 md:p-6">
-          <div className="mb-6">
-            <h2 className="text-lg font-semibold">Revenue by Token</h2>
-            <p className="text-xs text-muted-foreground mt-1">Distribution</p>
-          </div>
-          <ResponsiveContainer width="100%" height={250}>
-            <PieChart>
-              <Pie
-                data={revenueByToken}
-                cx="50%"
-                cy="50%"
-                innerRadius={40}
-                outerRadius={80}
-                paddingAngle={2}
-                dataKey="value"
-              >
-                {revenueByToken.map((_, index) => (
-                  <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                ))}
-              </Pie>
-              <Tooltip formatter={(value) => `$${value}`} />
-            </PieChart>
-          </ResponsiveContainer>
-          <div className="mt-4 space-y-2 text-sm">
-            {revenueByToken.map((token, i) => (
-              <div key={token.name} className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 rounded-full" style={{ backgroundColor: COLORS[i] }} />
-                  <span className="text-muted-foreground">{token.name}</span>
-                </div>
-                <span className="font-medium">${token.value}</span>
-              </div>
-            ))}
-          </div>
         </Card>
       </div>
 
@@ -211,21 +192,23 @@ export default function OverviewSection({ auth, merchant }: { auth: any; merchan
               </TableRow>
             </TableHeader>
             <TableBody>
-              {recentTransactions.map((tx) => (
-                <TableRow key={tx.id} className="border-white/10 hover:bg-white/5">
+              {recentTransactions.map((tx: any) => (
+                <TableRow key={tx._id} className="border-white/10 hover:bg-white/5">
                   <TableCell className="font-mono text-xs md:text-sm text-cyan-400">
-                    {tx.id}
+                    {tx._id}
                   </TableCell>
-                  <TableCell className="font-medium text-xs md:text-sm">{tx.amount}</TableCell>
+                  <TableCell className="font-medium text-xs md:text-sm">
+                    {tx.tokenIn.amount}
+                  </TableCell>
                   <TableCell>
                     <span className="inline-block px-2 py-1 rounded-md bg-white/10 text-xs font-medium">
-                      {tx.token}
+                      {tx.tokenIn.symbol}
                     </span>
                   </TableCell>
                   <TableCell>
                     <span
                       className={`inline-block px-2 py-1 rounded-md text-xs font-medium ${
-                        tx.status === "Completed"
+                        tx.status === "Success"
                           ? "bg-green-500/20 text-green-400"
                           : "bg-yellow-500/20 text-yellow-400"
                       }`}
@@ -234,7 +217,7 @@ export default function OverviewSection({ auth, merchant }: { auth: any; merchan
                     </span>
                   </TableCell>
                   <TableCell className="text-muted-foreground text-xs md:text-sm">
-                    {tx.time}
+                    {new Date(tx.updatedAt).toLocaleString()}
                   </TableCell>
                 </TableRow>
               ))}
@@ -249,11 +232,6 @@ export default function OverviewSection({ auth, merchant }: { auth: any; merchan
             <Wallet className="w-10 h-10 text-cyan-400" />
             <div>
               <p className="text-xs text-muted-foreground">Settlement Wallet</p>
-              <p className="text-sm font-mono mt-1 truncate">
-                {merchant?.walletAddress
-                  ? `${merchant.walletAddress.slice(0, 8)}...${merchant.walletAddress.slice(-8)}`
-                  : "Not configured"}
-              </p>
             </div>
           </div>
         </Card>
@@ -261,7 +239,7 @@ export default function OverviewSection({ auth, merchant }: { auth: any; merchan
         <Card className="p-4 md:p-6 text-center md:text-left">
           <div>
             <p className="text-xs text-muted-foreground">Settlement Token</p>
-            <p className="text-lg font-semibold mt-2">{merchant?.settlementToken || "USDC"}</p>
+            <p className="text-lg font-semibold mt-2">{merchant?.settlementToken || "SOL"}</p>
           </div>
         </Card>
 

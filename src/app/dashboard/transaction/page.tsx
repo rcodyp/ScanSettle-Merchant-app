@@ -30,8 +30,8 @@ export default function TransactionsSection() {
         const transactions = await response.json();
         console.log("Fetched transactions:", transactions);
 
-        setTransactions(transactions.data.transactions);
-        setTotalPages(transactions.data.totalPages);
+        setTransactions(transactions.data?.transactions ?? []);
+        setTotalPages(transactions.data?.totalPages ?? 1);
       } catch (error) {
         console.error("Error fetching transactions:", error);
       }
@@ -76,7 +76,7 @@ export default function TransactionsSection() {
                   <TableCell>
                     <span
                       className={`inline-block px-2 py-1 rounded-md text-xs font-medium ${
-                        tx.status === "Completed"
+                        tx.status === "Success"
                           ? "bg-green-500/20 text-green-400"
                           : "bg-yellow-500/20 text-yellow-400"
                       }`}

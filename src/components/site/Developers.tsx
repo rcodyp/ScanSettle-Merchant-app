@@ -54,7 +54,7 @@ function CodeCard() {
           <span className="text-[11px] font-mono text-muted-foreground">scansettle.ts</span>
         </div>
         <pre className="p-5 text-[12.5px] leading-relaxed font-mono overflow-x-auto">
-<code><span className="text-[#9aa0ad]">// Create a charge — settle in USDC on Solana</span>{"\n"}
+<code><span className="text-[#9aa0ad]">// Create a charge — settle in sol on Solana</span>{"\n"}
 <span className="text-[#9945FF]">import</span>{" "}<span className="text-foreground">{"{ ScanSettle }"}</span>{" "}
 <span className="text-[#9945FF]">from</span> <span className="text-[#14F195]">"@scansettle/sdk"</span>;{"\n\n"}
 <span className="text-[#9945FF]">const</span> <span className="text-[#00C2FF]">pos</span> = <span className="text-[#9945FF]">new</span>{" "}
@@ -63,7 +63,7 @@ function CodeCard() {
 <span className="text-[#9945FF]">await</span> <span className="text-[#00C2FF]">pos</span>.<span className="text-foreground">charges</span>.<span className="text-foreground">create</span>({"{"}
 {"\n  amount: "}<span className="text-[#14F195]">42.00</span>,
 {"\n  currency: "}<span className="text-[#14F195]">"USD"</span>,
-{"\n  settle: {"}{" chain: "}<span className="text-[#14F195]">"solana"</span>{", asset: "}<span className="text-[#14F195]">"USDC"</span>{" }"},
+{"\n  settle: {"}{" chain: "}<span className="text-[#14F195]">"solana"</span>{", asset: "}<span className="text-[#14F195]">"SOL"</span>{" }"},
 {"\n  accept: "}<span className="text-[#14F195]">"any"</span>,{"\n"}{"})"};{"\n\n"}
 <span className="text-[#9aa0ad]">// → returns a universal QR + listens for webhooks</span>{"\n"}
 <span className="text-foreground">render</span>(<span className="text-[#00C2FF]">charge</span>.qr);

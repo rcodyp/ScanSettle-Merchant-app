@@ -2,13 +2,11 @@
 
 import { useEffect, useState } from "react";
 import { getMerchant, getAuth } from "@/lib/merchant-store";
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell } from "recharts";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Card } from "@/components/ui/card";
-import { ArrowUpRight, ArrowDownRight, TrendingUp, Wallet, LayoutGrid, CreditCard, BarChart3, Settings, Menu, X } from "lucide-react";
+import { LayoutGrid, CreditCard, BarChart3, Settings, Menu, X } from "lucide-react";
 import PaymentFlow from "./payment/PaymentFlow";
 import OverviewSection from "./overview/page";
 import TransactionsSection from "./transaction/page";
+import SettingsSection from "./setting/page";
 
 
 
@@ -61,7 +59,9 @@ export function DashboardClient() {
           {activeSection === "overview" && <OverviewSection auth={auth} merchant={merchant} />}
           {activeSection === "payment" && <PaymentFlow />}
           {activeSection === "transactions" && <TransactionsSection />}
-          {activeSection === "settings" && <SettingsSection merchant={merchant} />}
+          {activeSection === "settings" && (
+            <SettingsSection merchant={merchant} onMerchantUpdate={() => setMerchant(getMerchant())} />
+          )}
         </div>
       </div>
     </div>
@@ -109,44 +109,7 @@ function Sidebar({ activeSection, setActiveSection, isOpen }: { activeSection: s
 
 
 
-function SettingsSection({ merchant }: { merchant: any }) {
-  return (
-    <div className="w-full h-full p-4 md:p-8 overflow-auto">
-      <div className="flex flex-col gap-2 mb-8">
-        <h1 className="text-2xl md:text-3xl font-semibold tracking-tight">Settings</h1>
-        <p className="text-sm text-muted-foreground">Manage your account and preferences</p>
-      </div>
 
-      <div className="max-w-2xl space-y-6">
-        <Card className="p-4 md:p-6">
-          <h2 className="text-lg font-semibold mb-4">Settlement Configuration</h2>
-          <div className="space-y-4">
-            <div>
-              <p className="text-xs text-muted-foreground mb-2">Settlement Wallet</p>
-              <p className="text-sm font-mono p-3 bg-white/5 rounded-md border border-white/10 break-all">
-                {merchant?.walletAddress || "Not configured"}
-              </p>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <p className="text-xs text-muted-foreground mb-2">Settlement Token</p>
-                <p className="text-sm font-semibold p-3 bg-white/5 rounded-md border border-white/10">
-                  {merchant?.settlementToken || "USDC"}
-                </p>
-              </div>
-              <div>
-                <p className="text-xs text-muted-foreground mb-2">Settlement Chain</p>
-                <p className="text-sm font-semibold p-3 bg-white/5 rounded-md border border-white/10">
-                  {merchant?.settlementChain || "Solana"}
-                </p>
-              </div>
-            </div>
-          </div>
-        </Card>
-      </div>
-    </div>
-  );
-}
 
 // function MetricCard({
 //   label,

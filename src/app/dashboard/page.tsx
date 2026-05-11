@@ -1,12 +1,5 @@
-"use client";
-
-import { AppShell } from "@/components/app/AppShell";
-import { DashboardClient } from "./DashboardClient";
+import { redirect } from "next/navigation";
 
 export default function DashboardPage() {
-  return (
-    <AppShell>
-      <DashboardClient />
-    </AppShell>
-  );
+  redirect("/dashboard/overview");
 }

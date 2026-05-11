@@ -13,7 +13,7 @@ const newWay = [
   "Any token, any chain accepted",
   "Routing & bridging fully abstracted",
   "Universal acceptance",
-  "Always settle in stable USDC on Solana",
+  "Always settle in stable SOL on Solana",
 ];
 
 export function Problem() {

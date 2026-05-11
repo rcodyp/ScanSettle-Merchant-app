@@ -7,7 +7,7 @@ const features = [
   { title: "Cross-chain payments", desc: "Accept from Ethereum, Solana, Base, Polygon, Bitcoin and more.", icon: "M4 12h16M4 6h16M4 18h16" },
   { title: "Non-custodial settlement", desc: "Funds route directly to the merchant's own Solana wallet.", icon: "M12 2l8 4v6c0 5-3.5 9-8 10-4.5-1-8-5-8-10V6l8-4z" },
   { title: "Browser-based POS", desc: "No app, no hardware. Works on any phone, tablet or laptop.", icon: "M3 5h18v12H3zM7 21h10M12 17v4" },
-  { title: "USDC settlement on Solana", desc: "Sub-second finality, fractions of a cent in fees.", icon: "M12 2v20M5 9h14M5 15h14" },
+  { title: "SOL settlement on Solana", desc: "Sub-second finality, fractions of a cent in fees.", icon: "M12 2v20M5 9h14M5 15h14" },
   { title: "Instant QR generation", desc: "Universal payment QR per charge — works in any wallet.", icon: "M3 3h7v7H3zM14 3h7v7h-7zM3 14h7v7H3zM14 14h3v3h-3zM18 18h3v3h-3z" },
   { title: "Merchant-friendly UX", desc: "Built for cashiers — designed for speed under real load.", icon: "M3 12l2-2 4 4 8-8 4 4" },
   { title: "Webhook confirmations", desc: "Signed events in real time for ERPs and order systems.", icon: "M4 12a8 8 0 1116 0M8 12a4 4 0 118 0" },

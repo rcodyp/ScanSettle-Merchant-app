@@ -21,7 +21,7 @@ export function Kirapay() {
           <div className="grid sm:grid-cols-3 gap-5 mt-10">
             <Stat label="Chains supported" value="20+" />
             <Stat label="Average settlement" value="~1.2s" />
-            <Stat label="Settlement asset" value="USDC · SOL" />
+            <Stat label="Settlement asset" value="SOL" />
           </div>
         </div>
       </div>
@@ -43,7 +43,7 @@ function Diagram() {
     { id: "wallet", label: "Customer Wallet", sub: "Any chain · any token", x: 60, y: 110 },
     { id: "kira", label: "KIRAPAY Checkout", sub: "Routing · bridging", x: 360, y: 110, brand: true },
     { id: "route", label: "Cross-chain Routing", sub: "Optimal liquidity path", x: 660, y: 110 },
-    { id: "merchant", label: "Merchant", sub: "USDC on Solana", x: 960, y: 110, success: true },
+    { id: "merchant", label: "Merchant", sub: "SOL on Solana", x: 960, y: 110, success: true },
   ];
   return (
     <div className="relative w-full overflow-x-auto">
