@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { getMerchant, getAuth } from "@/lib/merchant-store";
 import { LayoutGrid, CreditCard, BarChart3, Settings, Menu, X } from "lucide-react";
 import PaymentFlow from "./payment/PaymentFlow";
 import OverviewSection from "./overview/page";
@@ -12,15 +11,10 @@ import { AppShell } from "@/components/app/AppShell";
 
 
 export function DashboardClient() {
-  const [merchant, setMerchant] = useState<ReturnType<typeof getMerchant> | null>(null);
-  const [auth, setAuth] = useState<ReturnType<typeof getAuth> | null>(null);
   const [activeSection, setActiveSection] = useState<"overview" | "payment" | "transactions" | "settings">("overview");
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  useEffect(() => {
-    setMerchant(getMerchant());
-    setAuth(getAuth());
-  }, []);
+
 
   return (
     <AppShell>
@@ -58,11 +52,11 @@ export function DashboardClient() {
 
         {/* Content Area */}
         <div className="flex-1 overflow-auto w-full">
-          {activeSection === "overview" && <OverviewSection auth={auth} merchant={merchant} />}
+          {activeSection === "overview" && <OverviewSection />}
           {activeSection === "payment" && <PaymentFlow />}
           {activeSection === "transactions" && <TransactionsSection />}
           {activeSection === "settings" && (
-            <SettingsSection merchant={merchant} onMerchantUpdate={() => setMerchant(getMerchant())} />
+            <SettingsSection />
           )}
         </div>
       </div>
@@ -112,30 +106,3 @@ function Sidebar({ activeSection, setActiveSection, isOpen }: { activeSection: s
 
 
 
-
-// function MetricCard({
-//   label,
-//   value,
-//   change,
-//   icon,
-//   highlight,
-// }: {
-//   label: string;
-//   value: string;
-//   change?: string;
-//   icon?: React.ReactNode;
-//   highlight?: "warning";
-// }) {
-//   return (
-//     <Card className={`p-6 ${highlight === "warning" ? "border-yellow-500/20 bg-yellow-500/5" : ""}`}>
-//       <div className="flex items-start justify-between">
-//         <div className="flex-1">
-//           <p className="text-xs text-muted-foreground font-medium">{label}</p>
-//           <p className="text-2xl font-semibold mt-2">{value}</p>
-//           {change && <p className="text-xs text-green-400 mt-2">{change}</p>}
-//         </div>
-//         {icon && <div className="text-muted-foreground">{icon}</div>}
-//       </div>
-//     </Card>
-//   );
-// }

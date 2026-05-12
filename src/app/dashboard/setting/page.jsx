@@ -4,19 +4,9 @@ import { useWallet } from "@solana/wallet-adapter-react";
 
 import { Card } from "../../../components/ui/card";
 
-type Merchant = {
-  businessName: string;
-  email: string;
-  walletAddress: string;
-  settlementToken: string;
-  settlementChain: string;
-};
 
-export default function SettingsSection({
-  merchant,
-}: {
-  merchant: Merchant | null;
-}) {
+
+export default function SettingsSection() {
   const { publicKey, connected, wallet } = useWallet();
   const connectedWalletAddress = publicKey?.toBase58() ?? "Not connected";
   const settlementWalletAddress = merchant?.walletAddress || "Not set";

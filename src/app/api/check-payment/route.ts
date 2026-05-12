@@ -1,7 +1,8 @@
 import { NextResponse } from "next/server";
-const api = process.env.KIRAPAY_API_KEY;
+
 
 export async function GET(request: Request) {
+  const api = process.env.KIRAPAY_API_KEY ?? '';
   const response = await fetch("https://api.kira-pay.com/api/wallet/transactions/stats", {
     headers: {
       "x-api-key": api,

@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 export async function GET() {
   try {
     console.log("hi");
-    const api = process.env.KIRAPAY_API_KEY;
+    const api = process.env.KIRAPAY_API_KEY ?? ` `;
 
     if (!api) {
       return NextResponse.json(

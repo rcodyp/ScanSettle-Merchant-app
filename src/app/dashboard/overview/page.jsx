@@ -23,30 +23,17 @@ import { Card } from "@/components/ui/card";
 import { ArrowUpRight, ArrowDownRight, TrendingUp, Wallet, X } from "lucide-react";
 import { useRouter } from "next/navigation";
 
-const COLORS = ["#00D9FF", "#00F5A0", "#FFD700", "#FF6B6B"];
 
-function MetricCard({
-  label,
-  value,
-  change,
-  icon,
-  highlight,
-}: {
-  label: string;
-  value: string | number;
-  change?: string;
-  icon?: React.ReactNode;
-  highlight?: "warning";
-}) 
 
-export default function OverviewSection({ auth, merchant }: { auth: any; merchant: any }) {
+
+export default function OverviewSection() {
   const [totalTransactions, setTotalTransactions] = useState(0);
   const [pendingTransactions, setPendingTransactions] = useState(0);
   const [successfulTransactions, setSuccessfulTransactions] = useState(0);
   const [totalRevenue, setTotalRevenue] = useState(0);
   const [cancelledTransactions, setCancelledTransactions] = useState(0);
-  const [recentTransactions, setRecentTransactions] = useState<any[]>([]);
-  const [chartData, setChartData] = useState<any[]>([]);
+  const [recentTransactions, setRecentTransactions] = useState([]);
+  const [chartData, setChartData] = useState([]);
 
   const router = useRouter();
 
@@ -75,7 +62,7 @@ export default function OverviewSection({ auth, merchant }: { auth: any; merchan
         }
         const salesData = await Sales.json();
         setChartData(
-          salesData.data.result.map((item: any) => ({
+          salesData.data.result.map((item) => ({
             date: item.label,
             sales: item.totalPrice,
           })),
@@ -105,7 +92,7 @@ export default function OverviewSection({ auth, merchant }: { auth: any; merchan
         <h1 className="text-2xl md:text-3xl font-semibold tracking-tight">Welcome back</h1>
         <p className="text-sm text-muted-foreground">
           <span className="font-medium">
-            {auth?.businessName || merchant?.businessName || "Merchant"}
+            Merchant
           </span>
         </p>
       </div>
@@ -192,7 +179,7 @@ export default function OverviewSection({ auth, merchant }: { auth: any; merchan
               </TableRow>
             </TableHeader>
             <TableBody>
-              {recentTransactions.map((tx: any) => (
+              {recentTransactions.map((tx) => (
                 <TableRow key={tx._id} className="border-white/10 hover:bg-white/5">
                   <TableCell className="font-mono text-xs md:text-sm text-cyan-400">
                     {tx._id}
@@ -239,14 +226,14 @@ export default function OverviewSection({ auth, merchant }: { auth: any; merchan
         <Card className="p-4 md:p-6 text-center md:text-left" onClick={()=> router.push("/dashboard/setting")}>
           <div>
             <p className="text-xs text-muted-foreground">Settlement Token</p>
-            <p className="text-lg font-semibold mt-2">{merchant?.settlementToken || "SOL"}</p>
+            <p className="text-lg font-semibold mt-2">{"SOL"}</p>
           </div>
         </Card>
 
         <Card className="p-4 md:p-6 text-center md:text-left" onClick={()=> router.push("/dashboard/setting")}>
           <div>
             <p className="text-xs text-muted-foreground">Settlement Chain</p>
-            <p className="text-lg font-semibold mt-2">{merchant?.settlementChain || "Solana"}</p>
+            <p className="text-lg font-semibold mt-2">{"Solana"}</p>
           </div>
         </Card>
       </div>
@@ -254,19 +241,7 @@ export default function OverviewSection({ auth, merchant }: { auth: any; merchan
   );
 }
 
-function MetricCard({
-  label,
-  value,
-  change,
-  icon,
-  highlight,
-}: {
-  label: string;
-  value: string;
-  change?: string;
-  icon?: React.ReactNode;
-  highlight?: "warning";
-}) {
+function MetricCard({ label, value, change, icon, highlight }) {
   return (
     <Card
       className={`p-6 ${highlight === "warning" ? "border-yellow-500/20 bg-yellow-500/5" : ""}`}

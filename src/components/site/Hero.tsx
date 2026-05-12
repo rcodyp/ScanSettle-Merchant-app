@@ -65,14 +65,14 @@ export function Hero() {
 
           <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
             <a
-              href="/dashboard"
+              href="/dashboard/payment"
               className="inline-flex items-center gap-2 rounded-xl bg-gradient-brand px-5 py-3 text-sm font-medium text-[#0a0a0a] hover:opacity-95 transition"
             >
               Start Accepting Payments
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
             </a>
             <a
-              href="/pos"
+              href="/#demo"
               className="inline-flex items-center gap-2 rounded-xl glass px-5 py-3 text-sm font-medium hover:bg-white/5 transition"
             >
               <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
