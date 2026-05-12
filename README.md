@@ -95,7 +95,7 @@ Creates a demo order, builds a checkout URL, and uses the in-memory order store 
 
 ```bash
 git clone https://github.com/rcodyp/ScanSettle-Merchant-app
-cd scan-settle
+cd ScanSettle-Merchant-app
 ```
 
 ### 2. Install dependencies
