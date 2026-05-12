@@ -94,7 +94,7 @@ Creates a demo order, builds a checkout URL, and uses the in-memory order store 
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/your-username/scan-settle.git
+git clone https://github.com/rcodyp/ScanSettle-Merchant-app
 cd scan-settle
 ```
 
