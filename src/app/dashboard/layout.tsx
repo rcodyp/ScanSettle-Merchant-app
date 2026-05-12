@@ -7,12 +7,16 @@ import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { Logo } from "@/components/site/Logo";
 import { LayoutGrid, CreditCard, BarChart3, Settings, Menu, X } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function DashboardLayout({ children }: { children: ReactNode }) {
   const { connected, connecting } = useWallet();
   const pathname = usePathname();
   const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  useEffect(() => {
+    setSidebarOpen(false);
+  }, [pathname]);
 
   if (connecting) {
     return (
@@ -57,12 +61,12 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
         </div>
       </header>
       {sidebarOpen && (
-        <div className="fixed inset-0 z-40 bg-black/50 md:hidden" onClick={() => setSidebarOpen(false)} />
+        <div className="fixed inset-0 z-30 bg-black/50 md:hidden" onClick={() => setSidebarOpen(false)} />
       )}
 
       <div className="flex flex-1 min-h-0 overflow-hidden">
         <aside
-          className={`fixed inset-y-0 left-0 z-20 w-64 border-r border-white/10 bg-black/40 p-6 space-y-8 overflow-y-auto transition-transform md:static md:translate-x-0 md:h-full ${
+          className={`fixed inset-y-0 left-0 z-40 w-64 border-r border-white/10 bg-black/40 p-6 space-y-8 overflow-y-auto transition-transform md:static md:translate-x-0 md:h-full ${
             sidebarOpen ? "translate-x-0" : "-translate-x-full"
           } md:flex md:flex-col`}
         >
