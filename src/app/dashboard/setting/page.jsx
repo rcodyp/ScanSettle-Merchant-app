@@ -9,7 +9,7 @@ import { Card } from "../../../components/ui/card";
 export default function SettingsSection() {
   const { publicKey, connected, wallet } = useWallet();
   const connectedWalletAddress = publicKey?.toBase58() ?? "Not connected";
-  const settlementWalletAddress = merchant?.walletAddress || "Not set";
+  const settlementWalletAddress = "Not set";
   const walletName = wallet?.adapter.name ?? "Unknown wallet";
 
   return (
@@ -66,23 +66,23 @@ export default function SettingsSection() {
               </div>
               <div className="rounded-lg border border-white/10 bg-white/5 p-4">
                 <p className="text-xs text-muted-foreground mb-2">Settlement Token</p>
-                <p className="text-sm font-semibold">{merchant?.settlementToken || "SOL"}</p>
+                <p className="text-sm font-semibold">{"SOL"}</p>
               </div>
             </div>
 
             <div className="rounded-lg border border-white/10 bg-white/5 p-4">
               <p className="text-xs text-muted-foreground mb-2">Settlement Chain</p>
-              <p className="text-sm font-semibold">{merchant?.settlementChain || "Solana"}</p>
+              <p className="text-sm font-semibold">{ "Solana"}</p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="rounded-lg border border-white/10 bg-white/5 p-4">
                 <p className="text-xs text-muted-foreground mb-2">Business Name</p>
-                <p className="text-sm font-semibold">{merchant?.businessName || "Not set"}</p>
+                <p className="text-sm font-semibold">{"Not set"}</p>
               </div>
               <div className="rounded-lg border border-white/10 bg-white/5 p-4">
                 <p className="text-xs text-muted-foreground mb-2">Email</p>
-                <p className="text-sm font-semibold break-all">{merchant?.email || "Not set"}</p>
+                <p className="text-sm font-semibold break-all">{"Not set"}</p>
               </div>
             </div>
 
