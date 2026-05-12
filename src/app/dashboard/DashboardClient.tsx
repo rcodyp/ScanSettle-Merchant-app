@@ -7,6 +7,7 @@ import PaymentFlow from "./payment/PaymentFlow";
 import OverviewSection from "./overview/page";
 import TransactionsSection from "./transaction/page";
 import SettingsSection from "./setting/page";
+import { AppShell } from "@/components/app/AppShell";
 
 
 
@@ -22,6 +23,7 @@ export function DashboardClient() {
   }, []);
 
   return (
+    <AppShell>
     <div className="flex min-h-screen bg-background">
       {/* Mobile Sidebar Overlay */}
       {sidebarOpen && (
@@ -64,7 +66,7 @@ export function DashboardClient() {
           )}
         </div>
       </div>
-    </div>
+    </div></AppShell>
   );
 }
 

@@ -10,9 +10,6 @@ import {
   Tooltip,
   Legend,
   ResponsiveContainer,
-  PieChart,
-  Pie,
-  Cell,
 } from "recharts";
 import {
   Table,
@@ -24,6 +21,7 @@ import {
 } from "@/components/ui/table";
 import { Card } from "@/components/ui/card";
 import { ArrowUpRight, ArrowDownRight, TrendingUp, Wallet, X } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 const COLORS = ["#00D9FF", "#00F5A0", "#FFD700", "#FF6B6B"];
 
@@ -50,6 +48,8 @@ export default function OverviewSection({ auth, merchant }: { auth: any; merchan
   const [recentTransactions, setRecentTransactions] = useState<any[]>([]);
   const [chartData, setChartData] = useState<any[]>([]);
 
+  const router = useRouter();
+
   useEffect(() => {
     const fetchTransactions = async () => {
       try {
@@ -67,7 +67,7 @@ export default function OverviewSection({ auth, merchant }: { auth: any; merchan
         setCancelledTransactions(transactions.data.cancelledTransactions);
         console.log("Fetched transactions:", transactions);
 
-        const Sales = await fetch(`/api/sales-trend`, {
+        const Sales = await fetch(`/api/sales-trends`, {
           method: "GET",
         });
         if (!Sales.ok) {
@@ -173,7 +173,7 @@ export default function OverviewSection({ auth, merchant }: { auth: any; merchan
         </Card>
       </div>
 
-      <Card className="p-4 md:p-6">
+      <Card className="p-4 md:p-6" onClick={() => router.push("/dashboard/transaction")}>
         <div className="flex items-center justify-between mb-6 flex-col md:flex-row gap-2">
           <div>
             <h2 className="text-lg font-semibold">Recent Transactions</h2>
@@ -227,7 +227,7 @@ export default function OverviewSection({ auth, merchant }: { auth: any; merchan
       </Card>
 
       <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-        <Card className="p-4 md:p-6">
+        <Card className="p-4 md:p-6" onClick={()=> router.push("/dashboard/setting")}>
           <div className="flex items-center gap-4 flex-col md:flex-row text-center md:text-left">
             <Wallet className="w-10 h-10 text-cyan-400" />
             <div>
@@ -236,14 +236,14 @@ export default function OverviewSection({ auth, merchant }: { auth: any; merchan
           </div>
         </Card>
 
-        <Card className="p-4 md:p-6 text-center md:text-left">
+        <Card className="p-4 md:p-6 text-center md:text-left" onClick={()=> router.push("/dashboard/setting")}>
           <div>
             <p className="text-xs text-muted-foreground">Settlement Token</p>
             <p className="text-lg font-semibold mt-2">{merchant?.settlementToken || "SOL"}</p>
           </div>
         </Card>
 
-        <Card className="p-4 md:p-6 text-center md:text-left">
+        <Card className="p-4 md:p-6 text-center md:text-left" onClick={()=> router.push("/dashboard/setting")}>
           <div>
             <p className="text-xs text-muted-foreground">Settlement Chain</p>
             <p className="text-lg font-semibold mt-2">{merchant?.settlementChain || "Solana"}</p>

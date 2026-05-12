@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 
 export async function GET() {
   try {
+    console.log("hi");
     const api = process.env.KIRAPAY_API_KEY;
 
     if (!api) {
@@ -31,7 +32,6 @@ export async function GET() {
         headers: {
           "x-api-key": api,
         },
-        cache: "no-store",
       }
     );
 
