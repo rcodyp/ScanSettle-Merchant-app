@@ -1,6 +1,6 @@
 # ScanSettle
 
-ScanSettle is a cross-chain crypto POS and merchant dashboard built with Next.js. It lets merchants accept payments from a checkout flow, inspect dashboard metrics, and review transactions while settling in SOL on Solana.
+ScanSettle is a cross-chain crypto checkout terminal and merchant dashboard built with Next.js. It lets merchants accept payments from any wallet on any blockchain and always settle in SOL on Solana.
 
 This repository is designed to be easy to pick up for a new developer:
 
@@ -11,9 +11,7 @@ This repository is designed to be easy to pick up for a new developer:
 
 ## What the app does
 
-At a high level, the app provides:
-
-- A marketing site with product sections like Hero, How It Works, Problem, Features, Trust, and CTA.
+- A marketing site with product sections: Hero, How It Works, Problem, Features, Trust, and CTA.
 - A connected-wallet dashboard for merchants.
 - Dashboard pages for Overview, Accept Payment, Transactions, and Settings.
 - Server routes that fetch payment stats, sales trends, and transaction history from KiraPay.
@@ -31,118 +29,138 @@ At a high level, the app provides:
 
 ## Project Structure
 
-- `src/app/page.tsx` - landing page composition
-- `src/app/layout.tsx` - root layout, fonts, and Solana provider
-- `src/app/dashboard/layout.tsx` - dashboard shell, wallet gate, and sidebar navigation
-- `src/app/dashboard/overview/page.tsx` - overview metrics and recent activity
-- `src/app/dashboard/payment/PaymentFlow.tsx` - payment creation flow
-- `src/app/dashboard/transaction/page.tsx` - paginated transaction list
-- `src/app/dashboard/setting/page.tsx` - connected wallet and merchant details
-- `src/app/api/check-payment/route.ts` - KiraPay payment stats proxy
-- `src/app/api/create-order/route.ts` - create a payment link/order payload
-- `src/app/api/sales-trends/route.jsx` - KiraPay sales trend proxy
-- `src/app/api/transactions/route.jsx` - KiraPay transaction history proxy
-- `src/app/api/webhook/kirapay/route.ts` - webhook-style payment confirmation endpoint
-- `src/lib/orders.server.ts` - in-memory demo order store and helpers
+```
+src/
+├── app/
+│   ├── error.tsx                         # App-level error boundary
+│   ├── layout.tsx                        # Root layout, fonts, favicon, and Solana provider
+│   ├── not-found.tsx                     # App-level 404 page
+│   ├── page.tsx                          # Landing page composition
+│   ├── dashboard/
+│   │   ├── layout.tsx                    # Dashboard shell, wallet gate, sidebar
+│   │   ├── overview/page.jsx             # Overview metrics and recent activity
+│   │   ├── payment/
+│   │   │   ├── PaymentFlow.tsx           # Payment creation flow
+│   │   │   └── page.tsx                  # Accept-payment page wrapper
+│   │   ├── setting/page.jsx              # Connected wallet and merchant details
+│   │   └── transaction/page.tsx          # Paginated transaction list
+│   ├── wallet/
+│   │   ├── SolanaProvider.tsx            # Wallet adapter provider
+│   │   └── Wallet.tsx                    # Wallet UI helpers
+│   └── api/
+│       ├── check-payment/route.ts        # KiraPay payment stats proxy
+│       ├── create-order/route.ts         # Create a payment link/order payload
+│       ├── sales-trends/route.jsx        # KiraPay sales trend proxy
+│       ├── transactions/route.jsx        # KiraPay transaction history proxy
+│       └── webhook/kirapay/route.ts      # Payment confirmation webhook endpoint
+├── components/
+│   ├── app/AppShell.tsx                  # Shared application shell
+│   ├── site/                             # Marketing site sections
+│   └── ui/                               # shadcn/ui-style primitives
+├── hooks/
+│   └── use-mobile.tsx                    # Mobile breakpoint hook
+└── lib/
+    ├── error-capture.ts                 # Error capture helpers
+    ├── error-page.ts                    # Error page helpers
+    ├── orders.server.ts                 # In-memory demo order store and helpers
+    └── utils.ts                         # Shared utility helpers
+```
 
 ## Main User Flows
 
 ### Public site
-
-The home page renders the product story and navigation. It is composed from the site sections in `src/components/site`.
+The home page renders the product story and navigation, composed from sections in `src/components/site`.
 
 ### Dashboard access
-
 The dashboard requires a connected Solana wallet. If no wallet is connected, the layout shows a connect prompt instead of the dashboard content.
 
 ### Overview page
-
-The overview page fetches:
-
-- payment stats from `GET /api/check-payment`
-- sales trend data from `GET /api/sales-trends`
-- recent transactions from `GET /api/transactions?page=1&limit=10`
-
-It then displays summary cards, a line chart, and recent transaction rows.
+Fetches payment stats, sales trend data, and recent transactions, then displays summary cards, a line chart, and recent transaction rows.
 
 ### Payment flow
-
-The payment flow creates a demo order, builds a checkout URL, and uses the in-memory order store to simulate settlement during development.
+Creates a demo order, builds a checkout URL, and uses the in-memory order store to simulate settlement during development.
 
 ### Transactions and settings
-
 - Transactions shows paginated payment history.
-- Settings shows the connected wallet plus merchant settlement details.
-
-## Environment Variables
-
-Create a local `.env` file with the KiraPay key used by the server routes:
-
-```bash
-KIRAPAY_API_KEY=your_kirapay_api_key_here
-```
-
-Notes:
-
-- The dashboard and API routes expect this variable to exist when calling KiraPay endpoints.
-- The marketing site contains a code example that references `SS_KEY`, but that is displayed as documentation content rather than a runtime requirement for this app.
+- Settings shows the connected wallet and merchant settlement details.
 
 ## Getting Started
 
 ### Prerequisites
 
-- Node.js 18.18+ or newer
+- Node.js 18.18+
 - pnpm
 
-### Install dependencies
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/your-username/scan-settle.git
+cd scan-settle
+```
+
+### 2. Install dependencies
 
 ```bash
 pnpm install
 ```
 
-### Run the development server
+### 3. Set up environment variables
+
+Copy the example file:
+
+```bash
+cp .env.example .env
+```
+
+Open `.env` and add your KiraPay API key:
+
+```bash
+KIRAPAY_API_KEY=your_kirapay_api_key_here
+```
+
+The Solana network and RPC endpoint are optional — they default to devnet if not set:
+
+```bash
+# Optional
+NEXT_PUBLIC_SOLANA_NETWORK=devnet
+NEXT_PUBLIC_SOLANA_RPC_URL=https://your-custom-rpc-url
+```
+
+### 4. Run the development server
 
 ```bash
 pnpm dev
 ```
 
-Then open the local app URL printed by Next.js.
+Open the local URL printed by Next.js.
 
-### Build for production
+### 5. Build for production
 
 ```bash
 pnpm build
-```
-
-### Start the production server
-
-```bash
 pnpm start
 ```
 
-### Lint the codebase
+## Environment Variables
 
-```bash
-pnpm lint
-```
+| Variable | Required | Default | Description |
+|---|---|---|---|
+| `KIRAPAY_API_KEY` | Yes | — | API key for KiraPay payment integration |
+| `NEXT_PUBLIC_SOLANA_NETWORK` | No | `devnet` | Solana network: `devnet` or `mainnet-beta` |
+| `NEXT_PUBLIC_SOLANA_RPC_URL` | No | Public devnet RPC | Custom RPC endpoint (Helius, QuickNode, etc.) |
 
-### Format the codebase
-
-```bash
-pnpm format
-```
+**Notes:**
+- Variables prefixed with `NEXT_PUBLIC_` are exposed to the browser. Only use them for non-sensitive data.
+- Never commit real API keys to the repository.
+- See `.env.example` for a ready-to-copy template of all variables.
 
 ## API Routes
 
-### GET /api/check-payment
-
+### `GET /api/check-payment`
 Fetches payment summary stats from KiraPay.
 
-### POST /api/create-order
-
+### `POST /api/create-order`
 Creates a checkout payload for a payment request.
-
-Expected body shape:
 
 ```json
 {
@@ -153,19 +171,14 @@ Expected body shape:
 }
 ```
 
-### GET /api/sales-trends
-
+### `GET /api/sales-trends`
 Fetches the last seven days of sales trend data from KiraPay.
 
-### GET /api/transactions?page=1&limit=10
-
+### `GET /api/transactions?page=1&limit=10`
 Fetches paginated transaction history from KiraPay.
 
-### POST /api/webhook/kirapay
-
+### `POST /api/webhook/kirapay`
 Marks a demo order as paid by order ID.
-
-Expected body shape:
 
 ```json
 {
@@ -176,46 +189,42 @@ Expected body shape:
 
 ## Demo Order Store
 
-The local order store in `src/lib/orders.server.ts` is intentionally simple:
+The order store in `src/lib/orders.server.ts` is intentionally simple:
 
-- Orders are stored in memory.
-- Data resets on restart or cold start.
+- Orders are stored in memory and reset on every restart.
 - Orders can auto-confirm after a short delay to simulate settlement.
 
-This is useful for demos, hackathons, and local testing, but it should be replaced with persistent storage if you need durable orders.
+Useful for demos and local testing. Replace with persistent storage for production.
 
-## How the Dashboard Is Organized
+## Other Commands
 
-The dashboard layout in `src/app/dashboard/layout.tsx` handles:
+```bash
+pnpm lint       # Lint the codebase
+pnpm format     # Format the codebase
+```
 
-- wallet connection checks
-- the desktop sidebar
-- the mobile sidebar toggle
-- scroll isolation so the sidebar stays fixed while content scrolls
-
-The dashboard content itself is rendered inside the layout shell, so each page only needs to focus on its own data and UI.
-
-## Contributing Notes
+## Contributing
 
 If you are new to the codebase, start here:
 
-1. Read `src/app/layout.tsx` to understand the root app shell.
-2. Read `src/app/dashboard/layout.tsx` to understand the authenticated dashboard shell.
-3. Read `src/lib/orders.server.ts` to understand the demo order flow.
-4. Read the API routes in `src/app/api` to understand where data comes from.
-5. Use the dashboard pages as examples when adding new sections or tables.
+1. `src/app/layout.tsx` — root app shell
+2. `src/app/dashboard/layout.tsx` — authenticated dashboard shell
+3. `src/lib/orders.server.ts` — demo order flow
+4. `src/app/api/` — where data comes from
 
 When making changes:
-
-- Keep the dashboard layout and page content separated.
-- Prefer typed data shapes for any new server responses.
-- Update this README if you add new routes, env vars, or major user flows.
+- Keep dashboard layout and page content separated.
+- Prefer typed data shapes for new server responses.
+- Update this README if you add new routes, env vars, or major flows.
 
 ## Troubleshooting
 
-- If the dashboard asks for a wallet connection, connect a Solana wallet extension first.
-- If KiraPay requests fail, confirm `KIRAPAY_API_KEY` is present in your environment.
-- If demo orders disappear after restart, that is expected because the store is in memory only.
+| Problem | Fix |
+|---|---|
+| Dashboard asks for wallet connection | Install a Solana wallet (Phantom, Solflare) and connect it |
+| KiraPay requests failing | Check that `KIRAPAY_API_KEY` is set in your `.env` file |
+| Demo orders disappear on restart | Expected — the store is in-memory only |
+| Wallet not showing on mobile | Open the site inside your wallet app's built-in browser |
 
 ## License
 

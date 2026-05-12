@@ -20,7 +20,7 @@ export default function Wallet() {
         Continue with your Solana wallet. No sign-up required. We never store your wallet info.
       </p>
       <div className="w-full flex justify-center mt-4">
-        <SolanaProvider wallets={wallets}>
+        <SolanaProvider>
           <WalletMultiButton className="flex justify-center items-center" />
         </SolanaProvider>
       </div>

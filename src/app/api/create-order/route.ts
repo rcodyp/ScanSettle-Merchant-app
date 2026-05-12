@@ -12,6 +12,7 @@ export async function POST(request: Request) {
     const receiver = String(body.receiver || "").trim();
     const label = String(body.label || "").trim();
     const api = process.env.KIRAPAY_API_KEY;
+    console.log(api);
 
     if (!receiver) {
       return NextResponse.json({ error: "Receiver wallet address is required" }, { status: 400 });

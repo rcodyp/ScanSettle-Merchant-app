@@ -6,7 +6,7 @@
     "src/**/*.tsx",
     "vite.config.ts",
     ".next/types/**/*.ts"
-, "src/app/dashboard/payment/page.jsx", "src/app/dashboard/overview/page.jsx", "src/app/dashboard/setting/page.jsx"  ],
+, "src/app/dashboard/payment/page.jsx", "src/app/dashboard/overview/page.jsx", "src/app/dashboard/setting/page.jsx", "src/app/wallet/SolanaProvider.tsx"  ],
   "exclude": [
     "node_modules",
     "src/routes",

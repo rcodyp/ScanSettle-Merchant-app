@@ -10,7 +10,10 @@ export const metadata: Metadata = {
     default: "ScanSettle",
     template: "%s — ScanSettle",
   },
-  description: "Cross-chain crypto POS for physical merchants.",
+  description: "Cross-chain crypto checkout terminal for physical merchants.",
+  icons: {
+    icon: "/logo.png",
+  },
   openGraph: {
     title: "ScanSettle",
     description: "Accept any crypto. Settle in SOL on Solana.",

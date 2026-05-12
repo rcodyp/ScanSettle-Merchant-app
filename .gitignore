@@ -36,4 +36,4 @@ dist-ssr
 *.sw?
 .next/
 node_modules/
-.env*
+.env
