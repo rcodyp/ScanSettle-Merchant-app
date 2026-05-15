@@ -49,8 +49,25 @@ export function Hero() {
           >
             <span className="h-1.5 w-1.5 rounded-full bg-[var(--solana-green)] animate-pulse" />
             Powered by KIRAPAY cross-chain infrastructure
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            <svg
+              width="12"
+              height="12"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+            >
+              <path d="M5 12h14M13 6l6 6-6 6" />
+            </svg>
           </a>
+
+          <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
+            <a
+              className="inline-flex items-center gap-2 rounded-xl bg-gradient-brand px-5 py-3 text-sm font-medium text-[#0a0a0a] hover:opacity-95 transition"
+            >
+              Mainnet-Beta
+            </a>
+          </div>
 
           <h1 className="text-4xl sm:text-6xl md:text-7xl font-semibold tracking-[-0.035em] leading-[1.02]">
             Accept any crypto.
@@ -58,9 +75,8 @@ export function Hero() {
             <span className="text-gradient-brand">Settle in SOL on Solana.</span>
           </h1>
           <p className="mt-6 text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-            ScanSettle lets physical merchants accept payments from any wallet, token, or
-            blockchain — while automatically settling into SOL on Solana. One QR code.
-            Any wallet. Any chain.
+            ScanSettle lets physical merchants accept payments from any wallet, token, or blockchain
+            — while automatically settling into SOL on Solana. One QR code. Any wallet. Any chain.
           </p>
 
           <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
@@ -69,21 +85,38 @@ export function Hero() {
               className="inline-flex items-center gap-2 rounded-xl bg-gradient-brand px-5 py-3 text-sm font-medium text-[#0a0a0a] hover:opacity-95 transition"
             >
               Start Accepting Payments
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.5"
+              >
+                <path d="M5 12h14M13 6l6 6-6 6" />
+              </svg>
             </a>
             <a
               href="/#demo"
               className="inline-flex items-center gap-2 rounded-xl glass px-5 py-3 text-sm font-medium hover:bg-white/5 transition"
             >
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M8 5v14l11-7z" />
+              </svg>
               View Demo
             </a>
           </div>
 
           <div className="mt-6 flex items-center justify-center gap-6 text-xs text-muted-foreground">
-            <div className="flex items-center gap-1.5"><Check /> Non-custodial</div>
-            <div className="flex items-center gap-1.5"><Check /> No setup fees</div>
-            <div className="flex items-center gap-1.5"><Check /> Browser-based POS</div>
+            <div className="flex items-center gap-1.5">
+              <Check /> Non-custodial
+            </div>
+            <div className="flex items-center gap-1.5">
+              <Check /> No setup fees
+            </div>
+            <div className="flex items-center gap-1.5">
+              <Check /> Browser-based POS
+            </div>
           </div>
         </motion.div>
 
@@ -95,7 +128,9 @@ export function Hero() {
 
 function Check() {
   return (
-    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#14F195" strokeWidth="3"><path d="M20 6L9 17l-5-5"/></svg>
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#14F195" strokeWidth="3">
+      <path d="M20 6L9 17l-5-5" />
+    </svg>
   );
 }
 
@@ -156,11 +191,17 @@ function HeroDashboard() {
                 <div className="text-sm font-medium mb-2">Scan with any wallet</div>
                 <div className="flex flex-wrap gap-1.5">
                   {["Phantom", "MetaMask", "Coinbase", "Trust", "Rainbow"].map((w) => (
-                    <span key={w} className="rounded-md glass px-2 py-1 text-[11px] text-muted-foreground">{w}</span>
+                    <span
+                      key={w}
+                      className="rounded-md glass px-2 py-1 text-[11px] text-muted-foreground"
+                    >
+                      {w}
+                    </span>
                   ))}
                 </div>
                 <div className="mt-4 text-xs text-muted-foreground">
-                  Pay in <span className="text-foreground">ETH · SOL · SOL · MATIC · BTC</span> from any chain.
+                  Pay in <span className="text-foreground">ETH · SOL · SOL · MATIC · BTC</span> from
+                  any chain.
                 </div>
               </div>
             </div>
@@ -176,7 +217,9 @@ function HeroDashboard() {
             <div className="mt-5 flex items-center justify-between rounded-xl glass px-3 py-2.5">
               <div className="text-xs">
                 <div className="text-muted-foreground">Settlement</div>
-                <div className="font-semibold">42.00 SOL <span className="text-muted-foreground font-normal">on Solana</span></div>
+                <div className="font-semibold">
+                  42.00 SOL <span className="text-muted-foreground font-normal">on Solana</span>
+                </div>
               </div>
               <div className="flex items-center gap-1.5 text-[11px] text-[var(--solana-green)]">
                 <span className="h-1.5 w-1.5 rounded-full bg-[var(--solana-green)] animate-pulse" />
@@ -211,7 +254,9 @@ function ChainRouting() {
           return (
             <g key={c.name}>
               <circle cx="30" cy={y} r="6" fill={c.color} />
-              <text x="44" y={y + 4} fill="#cfd2dc" fontSize="11" fontFamily="Inter">{c.name}</text>
+              <text x="44" y={y + 4} fill="#cfd2dc" fontSize="11" fontFamily="Inter">
+                {c.name}
+              </text>
               <path
                 d={`M70 ${y} C 150 ${y}, 180 100, 270 100`}
                 stroke="url(#route)"
@@ -220,14 +265,22 @@ function ChainRouting() {
                 strokeDasharray="4 6"
                 opacity="0.7"
               >
-                <animate attributeName="stroke-dashoffset" from="0" to="-40" dur={`${1.6 + i * 0.2}s`} repeatCount="indefinite" />
+                <animate
+                  attributeName="stroke-dashoffset"
+                  from="0"
+                  to="-40"
+                  dur={`${1.6 + i * 0.2}s`}
+                  repeatCount="indefinite"
+                />
               </path>
             </g>
           );
         })}
         <circle cx="270" cy="100" r="14" fill="#14F195" opacity="0.15" />
         <circle cx="270" cy="100" r="9" fill="#14F195" />
-        <text x="270" y="135" textAnchor="middle" fill="#cfd2dc" fontSize="11" fontFamily="Inter">SOL · Solana</text>
+        <text x="270" y="135" textAnchor="middle" fill="#cfd2dc" fontSize="11" fontFamily="Inter">
+          SOL · Solana
+        </text>
       </svg>
     </div>
   );

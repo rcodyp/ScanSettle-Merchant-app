@@ -1,6 +1,6 @@
 "use client";
 
-import React, { FC, ReactNode, useMemo } from "react";
+import React, { FC, ReactNode, useMemo, useEffect } from "react";
 import { ConnectionProvider, WalletProvider } from "@solana/wallet-adapter-react";
 import { WalletAdapterNetwork } from "@solana/wallet-adapter-base";
 import { WalletModalProvider } from "@solana/wallet-adapter-react-ui";
@@ -11,6 +11,8 @@ import {
   TrustWalletAdapter,
 } from "@solana/wallet-adapter-wallets";
 import { clusterApiUrl } from "@solana/web3.js";
+import { createSolanaClient } from "@metamask/connect-solana";
+import "@solana/wallet-adapter-react-ui/styles.css";
 
 interface SolanaProviderProps {
   children: ReactNode;
@@ -27,9 +29,17 @@ export const SolanaProvider: FC<SolanaProviderProps> = ({ children }) => {
     [network],
   );
 
+    useEffect(() => {
+    createSolanaClient({
+      dapp: {
+        name: "My Solana Dapp",
+        url: window.location.origin,
+      },
+    });
+  }, []);
+
   const wallets = useMemo(
     () => [
-      // Desktop wallets
       new PhantomWalletAdapter(),
       new SolflareWalletAdapter({ network }),
       new CoinbaseWalletAdapter(),
@@ -40,7 +50,7 @@ export const SolanaProvider: FC<SolanaProviderProps> = ({ children }) => {
 
   return (
     <ConnectionProvider endpoint={endpoint}>
-      <WalletProvider wallets={wallets} autoConnect>
+      <WalletProvider wallets={[]} autoConnect>
         <WalletModalProvider>{children}</WalletModalProvider>
       </WalletProvider>
     </ConnectionProvider>
